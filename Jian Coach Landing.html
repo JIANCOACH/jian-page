@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jian Coach — Preparación Física Personalizada</title>
+<link rel="icon" href="assets/logo-jc.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg: #0D0D0D;
+    --bg-lift: #141518;
+    --bg-card: #17191D;
+    --line: #25272C;
+    --line-soft: #1d1f23;
+    --text: #ffffff;
+    --muted: #6C6F73;
+    --muted-2: #9a9da3;
+    --blue: #1358BB;
+    --blue-hi: #2D7BFF;
+    --blue-glow: rgba(19,88,187,.45);
+    --maxw: 1280px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  html{ scroll-behavior:smooth; overflow-x:hidden; max-width:100%; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+  /* ============ TYPE SYSTEM ============ */
+  .display{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:900;
+    font-style:italic;
+    line-height:.86;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+  }
+  .h-eyebrow{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted-2);
+  }
+  .h-eyebrow .num{ color:var(--blue-hi); margin-right:8px; }
+  .section-title{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800;
+    font-style:italic;
+    text-transform:uppercase;
+    line-height:.9;
+    letter-spacing:-0.005em;
+    font-size:clamp(40px, 6vw, 84px);
+    margin:14px 0 0;
+  }
+  .section-lede{
+    color:var(--muted-2);
+    max-width:560px;
+    font-size:17px;
+    margin-top:18px;
+  }
+
+  /* ============ LAYOUT ============ */
+  .container{
+    width:100%;
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 40px;
+  }
+  @media (max-width:600px){
+    .container{ padding:0 24px; }
+  }
+  section{ position:relative; }
+
+  /* ============ NAVBAR ============ */
+  .nav{
+    position:fixed; top:0; left:0; right:0;
+    z-index:50;
+    transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease, padding .25s ease;
+    padding:18px 0;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{
+    background:rgba(10,11,13,.78);
+    backdrop-filter:saturate(140%) blur(14px);
+    -webkit-backdrop-filter:saturate(140%) blur(14px);
+    border-bottom-color:var(--line);
+    padding:12px 0;
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand img{ height:44px; width:auto; }
+  .brand-word{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:900; font-style:italic; text-transform:uppercase;
+    font-size:22px; letter-spacing:.02em; line-height:1;
+  }
+  .brand-word small{
+    display:block; color:var(--muted);
+    font-size:11px; letter-spacing:.32em; font-weight:700;
+    margin-top:2px;
+  }
+  .nav-links{
+    display:flex; gap:32px;
+    font-size:14px; color:var(--muted-2); font-weight:500;
+  }
+  .nav-links a{ position:relative; padding:6px 0; transition: color .15s ease; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; right:100%; bottom:0; height:2px;
+    background:var(--blue-hi); transition: right .25s ease;
+  }
+  .nav-links a:hover::after{ right:0; }
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 22px;
+    background:var(--blue);
+    color:#fff; font-weight:700; font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    transition: background .15s ease, transform .15s ease;
+  }
+  .nav-cta:hover{ background:var(--blue-hi); transform:translateY(-1px); }
+  .nav-burger{ display:none; }
+
+  @media (max-width:880px){
+    .nav-links{ display:none; }
+    .nav-cta span.long{ display:none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;
+    padding:140px 0 80px;
+    display:flex; align-items:center;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 75% 45%, rgba(19,88,187,.22), transparent 55%),
+      radial-gradient(ellipse at 12% 80%, rgba(19,88,187,.10), transparent 50%),
+      var(--bg);
+  }
+  .hero::before{
+    /* faint dotted grid */
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,.6), transparent 70%);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.6), transparent 70%);
+  }
+  /* diagonal blue slashes */
+  .slash{
+    position:absolute;
+    background:var(--blue);
+    transform:skewX(-22deg);
+    pointer-events:none;
+  }
+  .hero .slash.s1{ width:3px; height:120px; left:46%; top:24%; opacity:.7; }
+  .hero .slash.s2{ width:2px; height:60px; left:48%; top:18%; opacity:.5; }
+  .hero .slash.s3{ width:5px; height:200px; left:-10px; bottom:6%; opacity:.9; box-shadow:0 0 30px var(--blue-glow); }
+
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns: 1.05fr .95fr; gap:60px; align-items:center;
+  }
+  .hero-grid > *{ min-width:0; }
+  .hero-copy .badge{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:8px 14px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+    border-radius:999px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:#fff;
+  }
+  .hero-copy .badge .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--blue-hi);
+    box-shadow:0 0 0 4px rgba(45,123,255,.18);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{transform:scale(1); opacity:1} 50%{transform:scale(1.25); opacity:.6} }
+
+  .hero h1{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:900; font-style:italic; text-transform:uppercase;
+    font-size: clamp(56px, 8.5vw, 148px);
+    line-height:.86;
+    letter-spacing:-0.015em;
+    margin:24px 0 0;
+    padding-bottom:.18em;
+  }
+  .hero h1 .blue{ color:var(--blue-hi); display:inline-block; white-space:nowrap; }
+  .hero h1 .line2{ display:block; white-space:nowrap; }
+  .hero-sub{
+    margin-top:42px;
+    max-width:520px;
+    color:var(--muted-2);
+    font-size:18px;
+    line-height:1.55;
+  }
+  .hero-cta-row{
+    margin-top:38px;
+    display:flex; gap:16px; flex-wrap:wrap; align-items:center;
+  }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:14px;
+    padding:18px 30px;
+    background:var(--blue);
+    color:#fff;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic;
+    text-transform:uppercase; letter-spacing:.06em;
+    font-size:20px;
+    clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    transition: background .15s ease, transform .15s ease, box-shadow .25s ease;
+    position:relative;
+    white-space:nowrap;
+  }
+  .btn-primary:hover{ background:var(--blue-hi); transform:translateY(-2px); box-shadow:0 12px 30px -10px var(--blue-glow); }
+  .btn-primary .arrow{ font-size:22px; transition: transform .2s ease; }
+  .btn-primary:hover .arrow{ transform: translateX(4px); }
+
+  .btn-ghost{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:18px 24px;
+    border:1px solid var(--line);
+    color:#fff;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700; font-style:italic; text-transform:uppercase; letter-spacing:.06em;
+    font-size:18px;
+    background:transparent;
+    transition: border-color .15s, background .15s, color .15s;
+  }
+  .btn-ghost:hover{ border-color:var(--blue-hi); background:rgba(45,123,255,.06); color:#fff; }
+
+  .hero-stats{
+    margin-top:54px;
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:0;
+    border-top:1px solid var(--line);
+    padding-top:24px;
+  }
+  .hero-stats .stat{ padding-right:18px; }
+  .hero-stats .stat + .stat{ border-left:1px solid var(--line); padding-left:24px; }
+  .hero-stats .stat .n{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:900; font-style:italic;
+    font-size:40px; line-height:1;
+    color:#fff;
+  }
+  .hero-stats .stat .n .sm{ font-size:22px; color:var(--blue-hi); margin-left:2px; }
+  .hero-stats .stat .l{
+    margin-top:8px; color:var(--muted-2); font-size:12px;
+    text-transform:uppercase; letter-spacing:.14em; font-family:'JetBrains Mono', monospace;
+  }
+
+  /* HERO VISUAL */
+  .hero-visual{
+    position:relative;
+    aspect-ratio: 4/5;
+    border:1px solid var(--line);
+    background:
+      linear-gradient(135deg, #0f1115 0%, #0a0c10 100%);
+    overflow:hidden;
+  }
+  .photo-slot{
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 12px, transparent 12px 24px),
+      radial-gradient(ellipse at 60% 40%, rgba(19,88,187,.20), transparent 60%);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    color:var(--muted-2);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    text-align:center;
+    padding:24px;
+  }
+  .photo-slot .pic{
+    width:78px; height:78px; border:1px dashed var(--muted); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted); font-size:28px; margin-bottom:16px;
+  }
+  .photo-slot small{ display:block; margin-top:6px; color:var(--muted); font-size:11px; }
+
+  /* corner blue bracket */
+  .hero-visual::before, .hero-visual::after{
+    content:''; position:absolute; width:36px; height:36px;
+    border:2px solid var(--blue-hi);
+  }
+  .hero-visual::before{ top:14px; left:14px; border-right:none; border-bottom:none; }
+  .hero-visual::after{ bottom:14px; right:14px; border-left:none; border-top:none; }
+
+  .hero-visual .corner-badge{
+    position:absolute; left:18px; bottom:18px;
+    background:var(--blue);
+    color:#fff;
+    padding:12px 16px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:14px; letter-spacing:.06em;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+  }
+  .hero-visual .corner-badge b{ display:block; font-size:22px; line-height:1; }
+
+  @media (max-width:980px){
+    .hero-grid{ grid-template-columns: 1fr; gap:50px; }
+    .hero-visual{ aspect-ratio: 16/13; max-width:520px; }
+    .hero-stats{ grid-template-columns: repeat(3,1fr); }
+    .hero h1{ line-height:.94; font-size:clamp(44px, 9vw, 84px); padding-bottom:.22em; }
+    .hero-sub{ margin-top:24px; }
+  }
+  @media (max-width:520px){
+    .hero{ padding:120px 0 60px; }
+    .hero-stats .stat .n{ font-size:32px; }
+    .hero-stats .stat .l{ font-size:10px; }
+    .hero-stats .stat + .stat{ padding-left:14px; }
+    .hero-stats .stat{ padding-right:10px; }
+  }
+
+  /* ============ SECTION FRAME ============ */
+  .section-pad{ padding:160px 0; }
+  @media (max-width:880px){ .section-pad{ padding:110px 0; } }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:40px; margin-bottom:80px;
+  }
+  .section-head .left{ max-width:680px; }
+  .section-head .right{ color:var(--muted-2); font-size:14px; max-width:300px; }
+
+  /* ============ SERVICES ============ */
+  .services{ background: linear-gradient(180deg, var(--bg) 0%, #0a0b0d 100%); }
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+  }
+  @media (max-width:1100px){ .services-grid{ grid-template-columns:repeat(2, 1fr); } }
+  .svc-card{
+    position:relative;
+    padding:36px 30px 32px;
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    transition: border-color .2s ease, transform .2s ease, background .2s ease;
+    overflow:hidden;
+  }
+  .svc-card::after{
+    content:''; position:absolute; top:0; right:0;
+    width:0; height:3px; background:var(--blue-hi);
+    transition: width .35s ease;
+  }
+  .svc-card:hover{ border-color:var(--blue); transform:translateY(-4px); background:#1a1d22; }
+  .svc-card:hover::after{ width:100%; }
+  .svc-card .icon{
+    width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(19,88,187,.12);
+    border:1px solid rgba(45,123,255,.35);
+    margin-bottom:24px;
+  }
+  .svc-card .num{
+    position:absolute; top:24px; right:28px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-style:italic; font-weight:900;
+    font-size:14px; color:var(--muted);
+    letter-spacing:.18em;
+  }
+  .svc-card h3{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:30px; line-height:1; margin:0 0 14px;
+    letter-spacing:-.005em;
+  }
+  .svc-card p{ color:var(--muted-2); font-size:15px; margin:0 0 20px; }
+  .svc-card ul{
+    list-style:none; padding:0; margin:0;
+    border-top:1px solid var(--line-soft); padding-top:16px;
+  }
+  .svc-card li{
+    display:flex; gap:10px; color:#cfd1d4; font-size:13.5px;
+    padding:6px 0;
+  }
+  .svc-card li::before{
+    content:''; width:5px; height:5px; background:var(--blue-hi); margin-top:9px; flex:none;
+    transform:rotate(45deg);
+  }
+  @media (max-width:680px){
+    .services-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ============ HOW IT WORKS ============ */
+  .how{
+    background:
+      linear-gradient(180deg, #0a0b0d 0%, var(--bg) 100%);
+    position:relative;
+  }
+  .how-grid{
+    display:grid; grid-template-columns: repeat(3,1fr); gap:32px;
+    position:relative;
+  }
+  .how-grid::before{
+    /* connector line */
+    content:''; position:absolute; top:60px; left:5%; right:5%;
+    height:1px; background: linear-gradient(90deg, transparent, var(--line) 12%, var(--line) 88%, transparent);
+    z-index:0;
+  }
+  .step{
+    position:relative; padding:0 8px;
+  }
+  .step .marker{
+    width:120px; height:120px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line);
+    background:var(--bg);
+    position:relative; z-index:1;
+    margin-bottom:28px;
+  }
+  .step .marker .n{
+    font-family:'Barlow Condensed', sans-serif;
+    font-style:italic; font-weight:900;
+    font-size:84px; line-height:1;
+    color:var(--blue-hi);
+    text-shadow: 0 0 36px rgba(45,123,255,.4);
+  }
+  .step .marker::after{
+    content:''; position:absolute; bottom:-1px; right:-1px;
+    width:18px; height:18px;
+    background:var(--blue);
+  }
+  .step .tag{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted); font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .step h4{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:32px; line-height:1; margin:0 0 14px; letter-spacing:-.005em;
+  }
+  .step p{ color:var(--muted-2); font-size:15px; margin:0; }
+  @media (max-width:880px){
+    .how-grid{ grid-template-columns:1fr; gap:48px; }
+    .how-grid::before{ display:none; }
+  }
+
+  /* ============ RESULTS ============ */
+  .results{ background:#101216; }
+  .testi-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+  }
+  .testi{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    padding:0;
+    display:flex; flex-direction:column;
+    overflow:hidden;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .testi:hover{ border-color:var(--blue); transform:translateY(-3px); }
+  .testi .ph{
+    aspect-ratio: 5/4;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 10px, transparent 10px 20px),
+      linear-gradient(160deg, #15171b 0%, #0d0f12 100%);
+    position:relative;
+    display:flex; align-items:flex-end; justify-content:flex-start;
+    padding:18px;
+  }
+  .testi .ph .meta-tag{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  }
+  .testi .ph .result-chip{
+    position:absolute; top:18px; right:18px;
+    background:var(--blue); color:#fff;
+    padding:8px 12px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:14px;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+  .testi .body{ padding:24px 26px 28px; }
+  .testi .quote{
+    color:#e5e7ea; font-size:15.5px; line-height:1.55;
+    margin:0 0 22px;
+    font-weight:500;
+  }
+  .testi .who{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:18px;
+    border-top:1px solid var(--line-soft);
+  }
+  .testi .who .name{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:20px; line-height:1;
+  }
+  .testi .who .name small{
+    display:block; font-style:normal; font-weight:500;
+    font-family:'Inter',sans-serif;
+    font-size:11px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase;
+    margin-top:6px;
+  }
+  .testi .who .big{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:900; font-style:italic;
+    color:var(--blue-hi);
+    font-size:42px; line-height:1;
+  }
+  .testi .who .big small{ font-size:18px; color:var(--muted-2); margin-left:2px; }
+  @media (max-width:880px){
+    .testi-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ============ ABOUT ============ */
+  .about{
+    background:var(--bg);
+    overflow:hidden;
+  }
+  .about-grid{
+    display:grid; grid-template-columns: .85fr 1.15fr; gap:80px; align-items:center;
+  }
+  .about-grid > *{ min-width:0; }
+  .about-photo{
+    position:relative;
+    aspect-ratio: 4/5;
+    border:1px solid var(--line);
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 12px, transparent 12px 24px),
+      linear-gradient(180deg, #14171c 0%, #0a0c10 100%);
+  }
+  .about-photo .ph-label{
+    position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.22em; color:var(--muted); text-transform:uppercase;
+  }
+  .about-photo .blue-bar{
+    position:absolute; left:-10px; bottom:40px; width:80px; height:6px; background:var(--blue);
+  }
+  .about-photo .corner-stamp{
+    position:absolute; bottom:18px; right:18px;
+    border:1px solid var(--blue-hi);
+    padding:10px 14px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:13px; letter-spacing:.06em;
+    color:var(--blue-hi);
+    background:rgba(45,123,255,.06);
+  }
+  .about h2{
+    margin:14px 0 22px;
+  }
+  .about-bio{
+    color:#d6d8db; font-size:17px; line-height:1.65; max-width:560px;
+  }
+  .about-bio + .about-bio{ margin-top:18px; color:var(--muted-2); font-size:15.5px; }
+  .creds{
+    margin-top:32px;
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .cred{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 12px;
+    border:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:#e5e7ea;
+  }
+  .cred .b{ width:5px; height:5px; background:var(--blue-hi); transform:rotate(45deg); }
+  .philosophy{
+    margin-top:36px;
+    padding:24px 24px 24px 30px;
+    border-left:3px solid var(--blue);
+    background:linear-gradient(90deg, rgba(19,88,187,.07), transparent 60%);
+  }
+  .philosophy .l{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--blue-hi);
+  }
+  .philosophy p{
+    margin:10px 0 0;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700; font-style:italic; text-transform:uppercase;
+    font-size:26px; line-height:1.1; letter-spacing:-.005em;
+    color:#fff;
+  }
+  @media (max-width:980px){
+    .about-grid{ grid-template-columns:1fr; gap:48px; }
+    .about-photo{ max-width:480px; }
+  }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta{
+    background:var(--blue);
+    position:relative; overflow:hidden;
+  }
+  .final-cta::before{
+    content:''; position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 80px);
+    pointer-events:none;
+  }
+  .final-cta::after{
+    content:''; position:absolute;
+    top:-100px; right:-100px;
+    width:520px; height:520px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.18), transparent 60%);
+    pointer-events:none;
+  }
+  .final-inner{
+    position:relative; z-index:2;
+    padding:110px 28px;
+    display:grid; grid-template-columns: 1.4fr 1fr; gap:50px; align-items:center;
+  }
+  .final-inner > *{ min-width:0; }
+  .final-inner .ey{
+    font-family:'JetBrains Mono', monospace;
+    color:rgba(255,255,255,.7);
+    font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+  }
+  .final-inner h2{
+    margin:18px 0 0;
+    color:#fff;
+    font-size:clamp(48px, 7vw, 96px);
+    text-shadow:0 4px 30px rgba(0,0,0,.18);
+  }
+  .final-inner .sub{
+    margin-top:18px;
+    color:rgba(255,255,255,.88);
+    font-size:18px;
+    max-width:540px;
+  }
+  .btn-wa{
+    display:inline-flex; align-items:center; gap:14px;
+    background:#0D0D0D; color:#fff;
+    padding:22px 28px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:22px; letter-spacing:.05em;
+    clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+    transition: transform .15s ease, background .15s ease;
+    white-space:nowrap;
+    max-width:100%;
+  }
+  .btn-wa span:last-child{ overflow:hidden; text-overflow:ellipsis; }
+  .btn-wa:hover{ background:#1a1d22; transform:translateY(-2px); }
+  .btn-wa .ic{
+    width:34px; height:34px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .final-right{
+    display:flex; flex-direction:column; gap:18px;
+  }
+  .final-right .num-bar{
+    color:#fff;
+    border-left:4px solid rgba(255,255,255,.5);
+    padding:6px 0 6px 18px;
+  }
+  .final-right .num-bar .n{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:900; font-style:italic;
+    font-size:42px; line-height:1;
+  }
+  .final-right .num-bar .l{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:rgba(255,255,255,.85); margin-top:6px;
+  }
+  @media (max-width:1080px){
+    .final-inner{ grid-template-columns:1fr; padding:80px 28px; gap:40px; }
+    .final-right{ flex-direction:row; flex-wrap:wrap; }
+    .final-right .num-bar{ flex:1 1 200px; }
+  }
+  @media (max-width:520px){
+    .btn-wa{ font-size:18px; padding:18px 22px; gap:10px; }
+    .btn-wa .ic{ width:28px; height:28px; }
+    .btn-wa .ic svg{ width:14px; height:14px; }
+  }
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:#08090b;
+    border-top:1px solid var(--line);
+    padding:64px 0 28px;
+  }
+  .foot-grid{
+    display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:40px;
+    align-items:flex-start;
+  }
+  .foot-brand p{ color:var(--muted-2); font-size:14px; margin-top:14px; max-width:300px; }
+  .foot-col h5{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:800; font-style:italic; text-transform:uppercase;
+    font-size:18px; letter-spacing:.04em;
+    margin:0 0 18px; color:#fff;
+  }
+  .foot-col a{
+    display:block; color:var(--muted-2); font-size:14px; margin-bottom:10px;
+    transition: color .15s ease;
+  }
+  .foot-col a:hover{ color:#fff; }
+  .social{
+    display:flex; gap:10px; margin-top:6px;
+  }
+  .social a{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 14px; border:1px solid var(--line);
+    font-size:13px; color:#fff;
+    transition: border-color .15s, background .15s;
+  }
+  .social a:hover{ border-color:var(--blue-hi); background:rgba(45,123,255,.06); }
+  .foot-bottom{
+    margin-top:48px; padding-top:24px;
+    border-top:1px solid var(--line-soft);
+    display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  @media (max-width:880px){
+    .foot-grid{ grid-template-columns:1fr 1fr; gap:32px; }
+  }
+  @media (max-width:520px){
+    .foot-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ============ FLOATING WHATSAPP ============ */
+  .wa-float{
+    position:fixed; right:22px; bottom:22px; z-index:60;
+    width:60px; height:60px; border-radius:50%;
+    background:#25D366; color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 18px 40px -10px rgba(37,211,102,.55), 0 0 0 0 rgba(37,211,102,.6);
+    animation: wapulse 2.4s ease-out infinite;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .wa-float:hover{ transform:scale(1.05); background:#1ebe57; }
+  .wa-float .lbl{
+    position:absolute; right:72px; background:#0D0D0D; color:#fff;
+    padding:8px 12px; font-size:12px; font-weight:600;
+    border:1px solid var(--line);
+    opacity:0; transform:translateX(10px); pointer-events:none;
+    transition: opacity .2s, transform .2s;
+    white-space:nowrap;
+  }
+  .wa-float:hover .lbl{ opacity:1; transform:translateX(0); }
+  @keyframes wapulse{
+    0%{ box-shadow: 0 18px 40px -10px rgba(37,211,102,.55), 0 0 0 0 rgba(37,211,102,.6); }
+    70%{ box-shadow: 0 18px 40px -10px rgba(37,211,102,.55), 0 0 0 20px rgba(37,211,102,0); }
+    100%{ box-shadow: 0 18px 40px -10px rgba(37,211,102,.55), 0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  /* ============ SCROLL FADE ============ */
+  .reveal{ opacity:0; transform:translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+  .reveal.d1{ transition-delay:.08s; }
+  .reveal.d2{ transition-delay:.16s; }
+  .reveal.d3{ transition-delay:.24s; }
+  .reveal.d4{ transition-delay:.32s; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Jian Coach">
+      <img src="assets/logo-jc.png" alt="" />
+      <div class="brand-word">Jian<small>Coach</small></div>
+    </a>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#sobre">Sobre Jian</a>
+    </div>
+    <a href="#contacto" class="nav-cta">
+      <span>Empieza Hoy</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="top" data-screen-label="01 Hero">
+  <span class="slash s1"></span>
+  <span class="slash s2"></span>
+  <span class="slash s3"></span>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="badge reveal"><span class="dot"></span> Preparación Física Personalizada</div>
+      <h1 class="reveal d1">
+        Tu Cuerpo<br/>
+        Ya Decidió.
+        <span class="line2"><span class="blue">¿Y Tú?</span></span>
+      </h1>
+      <p class="hero-sub reveal d2">
+        Entrenamientos diseñados para tu cuerpo, tu ritmo y tu objetivo. Sin atajos, sin excusas — solo resultados medibles, semana tras semana.
+      </p>
+      <div class="hero-cta-row reveal d3">
+        <a href="#contacto" class="btn-primary">
+          <span>Empieza Hoy</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#proceso" class="btn-ghost">Cómo funciona</a>
+      </div>
+      <div class="hero-stats reveal d4">
+        <div class="stat">
+          <div class="n">+50<span class="sm">·</span></div>
+          <div class="l">Atletas entrenados</div>
+        </div>
+        <div class="stat">
+          <div class="n">98<span class="sm">%</span></div>
+          <div class="l">Cumplen su meta</div>
+        </div>
+        <div class="stat">
+          <div class="n">7<span class="sm">años</span></div>
+          <div class="l">De experiencia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal d2" aria-hidden="true">
+      <div class="photo-slot">
+        <div class="pic">▣</div>
+        <div>Foto atleta — posición de arranque</div>
+        <small>Drop final hero photo here (4:5)</small>
+      </div>
+      <div class="corner-badge">
+        Jian Coach
+        <b>Personal Training</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section class="services section-pad" id="servicios" data-screen-label="02 Servicios">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="left">
+        <div class="h-eyebrow"><span class="num">01</span> Servicios</div>
+        <h2 class="section-title">No es una rutina.<br/>Es un <span style="color:var(--blue-hi)">sistema</span>.</h2>
+      </div>
+      <div class="right">
+        Todo lo que necesitas para transformar tu cuerpo — desde rehabilitación hasta alto rendimiento.
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <article class="svc-card reveal d1">
+        <div class="num">01 / 06</div>
+        <div class="icon" aria-hidden="true">
+          <!-- dumbbell -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+            <rect x="2" y="9" width="3" height="6"/>
+            <rect x="6" y="6" width="3" height="12"/>
+            <rect x="15" y="6" width="3" height="12"/>
+            <rect x="19" y="9" width="3" height="6"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+          </svg>
+        </div>
+        <h3>Entrenamiento<br/>Personalizado</h3>
+        <p>Plan semanal de fuerza, hipertrofia o acondicionamiento adaptado a tu nivel, equipo disponible y horarios.</p>
+        <ul>
+          <li>Rutinas paso a paso</li>
+          <li>Progresión semanal medible</li>
+          <li>Ajustes según tu feedback</li>
+        </ul>
+      </article>
+
+      <article class="svc-card reveal d2">
+        <div class="num">02 / 06</div>
+        <div class="icon" aria-hidden="true">
+          <!-- group / classes -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+            <circle cx="7" cy="8" r="3"/>
+            <circle cx="17" cy="8" r="3"/>
+            <path d="M2 20c0-3 2.5-5 5-5s5 2 5 5"/>
+            <path d="M12 20c0-3 2.5-5 5-5s5 2 5 5"/>
+          </svg>
+        </div>
+        <h3>Clases<br/>Grupales</h3>
+        <p>Entrenamientos en grupo de alta energía. Comunidad, motivación y un coach guiando cada movimiento en sala.</p>
+        <ul>
+          <li>Grupos reducidos y dirigidos</li>
+          <li>Horarios flexibles semanales</li>
+          <li>Para todos los niveles</li>
+        </ul>
+      </article>
+
+      <article class="svc-card reveal d3">
+        <div class="num">03 / 06</div>
+        <div class="icon" aria-hidden="true">
+          <!-- monitor / online -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+            <rect x="2" y="4" width="20" height="13"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+            <polyline points="7 11 10 13 16 8"/>
+          </svg>
+        </div>
+        <h3>Coaching<br/>Online</h3>
+        <p>Planificaciones a distancia para que entrenes donde estés. Programas digitales con seguimiento semanal directo conmigo.</p>
+        <ul>
+          <li>Plan mensual personalizado</li>
+          <li>Videos demostrativos</li>
+          <li>Check-in por WhatsApp</li>
+        </ul>
+      </article>
+
+      <article class="svc-card reveal d1">
+        <div class="num">04 / 06</div>
+        <div class="icon" aria-hidden="true">
+          <!-- shield / rehab -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+            <path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6z"/>
+            <polyline points="8 12 11 15 16 9"/>
+          </svg>
+        </div>
+        <h3>Rehabilitación<br/>Deportiva</h3>
+        <p>Vuelve más fuerte después de una lesión. Trabajo progresivo, seguro y supervisado para recuperar movilidad y fuerza.</p>
+        <ul>
+          <li>Protocolos de retorno seguro</li>
+          <li>Ejercicio correctivo</li>
+          <li>Coordinación con tu kine</li>
+        </ul>
+      </article>
+
+      <article class="svc-card reveal d2">
+        <div class="num">05 / 06</div>
+        <div class="icon" aria-hidden="true">
+          <!-- heart / senior -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+            <path d="M12 21s-7-4.5-9-10c-1-3 1.5-6 4.5-6 1.8 0 3.4 1 4.5 2.5C13.1 6 14.7 5 16.5 5c3 0 5.5 3 4.5 6-2 5.5-9 10-9 10z"/>
+          </svg>
+        </div>
+        <h3>Adultos<br/>Mayores</h3>
+        <p>Entrenamiento adaptado para mantener autonomía, fuerza y equilibrio. Movilidad y bienestar que se notan día a día.</p>
+        <ul>
+          <li>Ejercicios funcionales seguros</li>
+          <li>Trabajo de equilibrio y fuerza</li>
+          <li>Ritmo respetuoso y cuidado</li>
+        </ul>
+      </article>
+
+      <article class="svc-card reveal d3">
+        <div class="num">06 / 06</div>
+        <div class="icon" aria-hidden="true">
+          <!-- chart / results -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+            <polyline points="3 17 9 11 13 15 21 6"/>
+            <polyline points="21 6 21 11 16 11"/>
+          </svg>
+        </div>
+        <h3>Seguimiento<br/>y Resultados</h3>
+        <p>Evaluaciones periódicas, mediciones y ajuste continuo del plan. Si no avanzas, el plan cambia.</p>
+        <ul>
+          <li>Reporte de progreso quincenal</li>
+          <li>Soporte directo por WhatsApp</li>
+          <li>Avance medible y constante</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="how section-pad" id="proceso" data-screen-label="03 Proceso">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="left">
+        <div class="h-eyebrow"><span class="num">02</span> Cómo funciona</div>
+        <h2 class="section-title">Tres pasos<br/>cero excusas.</h2>
+      </div>
+      <div class="right">
+        En menos de 7 días desde el primer mensaje, ya estás entrenando con un plan diseñado para ti.
+      </div>
+    </div>
+
+    <div class="how-grid">
+      <div class="step reveal d1">
+        <div class="marker"><span class="n">01</span></div>
+        <div class="tag">Paso uno · Contacto</div>
+        <h4>Me contactas</h4>
+        <p>Escríbeme por WhatsApp o Instagram. Charlamos sobre tu objetivo, tu historial y tu disponibilidad real.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="marker"><span class="n">02</span></div>
+        <div class="tag">Paso dos · Diseño</div>
+        <h4>Diseñamos tu plan</h4>
+        <p>Recibes tu rutina semanal y guía paso a paso según tu nivel y objetivo. Listo para arrancar desde el primer día.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="marker"><span class="n">03</span></div>
+        <div class="tag">Paso tres · Transformación</div>
+        <h4>Transformas tu cuerpo</h4>
+        <p>Entrenas, medimos, ajustamos. Estoy contigo en cada clase y cada semana, guiando cada repetición hasta ver el cambio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESULTS ========== -->
+<section class="results section-pad" id="resultados" data-screen-label="04 Resultados">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="left">
+        <div class="h-eyebrow"><span class="num">03</span> Resultados Reales</div>
+        <h2 class="section-title">Cuerpos que ya<br/>dijeron <span style="color:var(--blue-hi)">sí</span>.</h2>
+      </div>
+      <div class="right">
+        Testimonios reales de personas comunes con disciplina extraordinaria. Sin filtros, sin photoshop.
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <article class="testi reveal d1">
+        <div class="ph">
+          <div class="meta-tag">Foto cliente</div>
+        </div>
+        <div class="body">
+          <p class="quote">"En 12 semanas pasé de no poder subir escaleras a correr 5K. El plan fue exigente pero realista, sin tortura."</p>
+          <div class="who">
+            <div class="name">Camila R.<small>32 años · Santiago</small></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi reveal d2">
+        <div class="ph">
+          <div class="meta-tag">Foto cliente</div>
+        </div>
+        <div class="body">
+          <p class="quote">"Llevaba 2 años estancado en el gym. Con Jian volví a entrenar con técnica y al fin subí mis cargas con seguridad."</p>
+          <div class="who">
+            <div class="name">Matías V.<small>27 años · Concepción</small></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi reveal d3">
+        <div class="ph">
+          <div class="meta-tag">Foto cliente</div>
+        </div>
+        <div class="body">
+          <p class="quote">"Después de mi lesión pensé que no volvería a entrenar. Jian me devolvió la confianza y la fuerza paso a paso."</p>
+          <div class="who">
+            <div class="name">Daniela P.<small>35 años · Viña del Mar</small></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="about section-pad" id="sobre" data-screen-label="05 Sobre Jian">
+  <div class="container about-grid">
+    <div class="about-photo reveal" aria-hidden="true">
+      <div class="ph-label">Foto Jian · entrenando</div>
+      <div class="blue-bar"></div>
+      <div class="corner-stamp">Preparador Físico</div>
+    </div>
+    <div class="reveal d1">
+      <div class="h-eyebrow"><span class="num">04</span> Sobre Jian</div>
+      <h2 class="section-title">Tres niveles.<br/>Una misma <span style="color:var(--blue-hi)">disciplina</span>.</h2>
+      <p class="about-bio">
+        Soy Jian — preparador físico certificado con más de 7 años acompañando a personas en todas las etapas de su camino físico. Mi enfoque combina ciencia del ejercicio y un acompañamiento que no te deja caer.
+      </p>
+      <p class="about-bio">
+        Trabajo con tres niveles claros: <strong style="color:#fff;">Inicial</strong> — rehabilitación deportiva y adultos mayores que vuelven a moverse con seguridad. <strong style="color:#fff;">Intermedio</strong> — salud y estética para quienes buscan transformar su cuerpo. <strong style="color:#fff;">Avanzado</strong> — rendimiento para deportistas que quieren llevar su nivel más lejos.
+      </p>
+
+      <div class="creds">
+        <span class="cred"><span class="b"></span>Preparador Físico</span>
+        <span class="cred"><span class="b"></span>Rehabilitación deportiva</span>
+        <span class="cred"><span class="b"></span>7+ años</span>
+      </div>
+
+      <div class="philosophy">
+        <div class="l">— Filosofía</div>
+        <p>"Tu cuerpo decidió, ¿y tú?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="final-cta" id="contacto" data-screen-label="06 CTA Final">
+  <div class="container final-inner">
+    <div class="reveal">
+      <div class="ey">— El primer paso es un mensaje</div>
+      <h2 class="display">¿Listo para<br/>empezar?</h2>
+      <p class="sub">Tu próximo cuerpo no llega solo. Hablemos hoy y diseñemos juntos el plan que sí vas a cumplir.</p>
+      <div style="margin-top:34px;">
+        <a class="btn-wa" href="https://wa.me/56994407228?text=Hola%20Jian%2C%20quiero%20empezar" target="_blank" rel="noopener">
+          <span class="ic" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff">
+              <path d="M20.5 3.5A11 11 0 0 0 3.7 17.3L2 22l4.8-1.6A11 11 0 1 0 20.5 3.5zM12 20a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3a8 8 0 1 1 6.5 3.4zm4.5-5.9c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.1-.6 0a6.5 6.5 0 0 1-3.2-2.8c-.2-.4 0-.6.2-.8s.4-.4.5-.6.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2A5 5 0 0 0 7.9 12a11.3 11.3 0 0 0 4.3 3.8c.6.3 1.1.4 1.5.5a3.5 3.5 0 0 0 1.6 0c.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1z"/>
+            </svg>
+          </span>
+          <span>Escríbeme por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+    <div class="final-right reveal d1">
+      <div class="num-bar"><div class="n">24h</div><div class="l">Respuesta promedio</div></div>
+      <div class="num-bar"><div class="n">100%</div><div class="l">Plan personalizado</div></div>
+      <div class="num-bar"><div class="n">+50</div><div class="l">Atletas activos</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand" aria-label="Jian Coach">
+          <img src="assets/logo-jc.png" alt="" style="height:48px;"/>
+          <div class="brand-word">Jian<small>Coach</small></div>
+        </a>
+        <p>Preparación física personalizada. Resultados medibles, acompañamiento real, cero relleno.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navegar</h5>
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Cómo funciona</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#sobre">Sobre Jian</a>
+      </div>
+      <div class="foot-col">
+        <h5>Programa</h5>
+        <a href="#contacto">Empezar hoy</a>
+        <a href="#contacto">Consulta gratuita</a>
+        <a href="#contacto">Plan completo</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contacto</h5>
+        <div class="social">
+          <a href="https://instagram.com/jian.coach" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="4"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/>
+            </svg>
+            jian.coach
+          </a>
+        </div>
+        <div class="social" style="margin-top:10px;">
+          <a href="https://wa.me/56994407228" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.5 3.5A11 11 0 0 0 3.7 17.3L2 22l4.8-1.6A11 11 0 1 0 20.5 3.5zM12 20a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3a8 8 0 1 1 6.5 3.4z"/>
+            </svg>
+            +56 9 9440 7228
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Jian Coach · Todos los derechos reservados</div>
+      <div>Santiago de Chile · CL</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== FLOATING WA ========== -->
+<a class="wa-float" href="https://wa.me/56994407228?text=Hola%20Jian%2C%20quiero%20empezar" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+    <path d="M20.5 3.5A11 11 0 0 0 3.7 17.3L2 22l4.8-1.6A11 11 0 1 0 20.5 3.5zM12 20a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3a8 8 0 1 1 6.5 3.4zm4.5-5.9c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.1-.6 0a6.5 6.5 0 0 1-3.2-2.8c-.2-.4 0-.6.2-.8s.4-.4.5-.6.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2A5 5 0 0 0 7.9 12a11.3 11.3 0 0 0 4.3 3.8c.6.3 1.1.4 1.5.5a3.5 3.5 0 0 0 1.6 0c.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1z"/>
+  </svg>
+  <span class="lbl">Escríbeme por WhatsApp</span>
+</a>
+
+<script>
+  // Sticky nav scroll state
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 24) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Animate hero stats count-up (simple)
+  const animateNumber = (el) => {
+    const target = parseFloat(el.dataset.to);
+    const dur = 1200;
+    const start = performance.now();
+    const startVal = 0;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      const ease = 1 - Math.pow(1 - t, 3);
+      const val = Math.round(startVal + (target - startVal) * ease);
+      el.textContent = val;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+</script>
+</body>
+</html>
