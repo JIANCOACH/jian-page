@@ -425,15 +425,15 @@
     );
   }
   .svc-card p{
-    color:rgba(255,255,255,.75); font-size:14.5px;
+    color:#fff; font-size:14.5px;
     margin:0 0 14px; line-height:1.5;
   }
   .svc-card ul{
     list-style:none; padding:0; margin:0;
-    border-top:1px solid rgba(255,255,255,.15); padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.25); padding-top:12px;
   }
   .svc-card li{
-    display:flex; gap:10px; color:rgba(255,255,255,.82); font-size:13px;
+    display:flex; gap:10px; color:#fff; font-size:13px;
     padding:4px 0;
   }
   .svc-card li::before{
@@ -878,8 +878,16 @@
   html.light .services{
     background: linear-gradient(180deg, var(--bg) 0%, #EAEDF2 100%);
   }
-  html.light .svc-card:hover{ background:#F8F9FC; }
-  html.light .svc-card li{ color:#3a3d42; }
+  html.light .svc-card h3{ color:#fff; }
+  html.light .svc-card p{ color:rgba(255,255,255,.90); }
+  html.light .svc-card li{ color:rgba(255,255,255,.90); }
+  html.light .svc-card .num{ color:rgba(255,255,255,.55); }
+  html.light .svc-head{
+    background:linear-gradient(to bottom, rgba(5,6,8,.99) 0%, rgba(5,6,8,.92) 35%, transparent 100%);
+  }
+  html.light .svc-foot{
+    background:linear-gradient(to top, rgba(5,6,8,.99) 0%, rgba(5,6,8,.92) 40%, transparent 100%);
+  }
   html.light .how{
     background: linear-gradient(180deg, #EAEDF2 0%, var(--bg) 100%);
   }
