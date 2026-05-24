@@ -351,59 +351,98 @@
   /* ============ SERVICES ============ */
   .services{ background: linear-gradient(180deg, var(--bg) 0%, #0a0b0d 100%); }
   .services-grid{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:3px;
   }
   @media (max-width:1100px){ .services-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:680px){ .services-grid{ grid-template-columns:1fr; } }
+
   .svc-card{
     position:relative;
-    padding:36px 30px 32px;
-    background:var(--bg-card);
-    border:1px solid var(--line);
-    transition: border-color .2s ease, transform .2s ease, background .2s ease;
+    min-height:520px;
     overflow:hidden;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    background:#0a0b0d;
   }
+  .svc-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    transition: transform .65s ease;
+    display:block;
+  }
+  .svc-card:hover .svc-img{ transform:scale(1.07); }
+
+  /* blue top bar on hover */
   .svc-card::after{
-    content:''; position:absolute; top:0; right:0;
+    content:''; position:absolute; top:0; left:0;
     width:0; height:3px; background:var(--blue-hi);
-    transition: width .35s ease;
+    transition: width .4s ease; z-index:2;
   }
-  .svc-card:hover{ border-color:var(--blue); transform:translateY(-4px); background:#1a1d22; }
   .svc-card:hover::after{ width:100%; }
+
+  /* HEAD — gradiente superior con icono + número + título */
+  .svc-head{
+    position:relative; z-index:1;
+    padding:22px 22px 72px;
+    background:linear-gradient(to bottom,
+      rgba(5,6,8,.97) 0%,
+      rgba(5,6,8,.88) 30%,
+      transparent 100%
+    );
+  }
+  .svc-top{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
   .svc-card .icon{
-    width:56px; height:56px;
+    width:44px; height:44px;
     display:flex; align-items:center; justify-content:center;
-    background: rgba(19,88,187,.12);
-    border:1px solid rgba(45,123,255,.35);
-    margin-bottom:24px;
+    background:rgba(19,88,187,.30);
+    border:1px solid rgba(45,123,255,.50);
   }
   .svc-card .num{
-    position:absolute; top:24px; right:28px;
     font-family:'Barlow Condensed', sans-serif;
     font-style:italic; font-weight:900;
-    font-size:14px; color:var(--muted);
+    font-size:13px; color:rgba(255,255,255,.50);
     letter-spacing:.18em;
   }
   .svc-card h3{
     font-family:'Barlow Condensed', sans-serif;
     font-weight:800; font-style:italic; text-transform:uppercase;
-    font-size:30px; line-height:1; margin:0 0 14px;
-    letter-spacing:-.005em;
+    font-size:32px; line-height:1; margin:0;
+    letter-spacing:-.005em; color:#fff;
   }
-  .svc-card p{ color:var(--muted-2); font-size:15px; margin:0 0 20px; }
+
+  /* FOOT — gradiente inferior con descripción + bullets */
+  .svc-foot{
+    position:relative; z-index:1;
+    padding:72px 22px 24px;
+    margin-top:auto;
+    background:linear-gradient(to top,
+      rgba(5,6,8,.97) 0%,
+      rgba(5,6,8,.88) 35%,
+      transparent 100%
+    );
+  }
+  .svc-card p{
+    color:rgba(255,255,255,.75); font-size:14.5px;
+    margin:0 0 14px; line-height:1.5;
+  }
   .svc-card ul{
     list-style:none; padding:0; margin:0;
-    border-top:1px solid var(--line-soft); padding-top:16px;
+    border-top:1px solid rgba(255,255,255,.15); padding-top:12px;
   }
   .svc-card li{
-    display:flex; gap:10px; color:#cfd1d4; font-size:13.5px;
-    padding:6px 0;
+    display:flex; gap:10px; color:rgba(255,255,255,.82); font-size:13px;
+    padding:4px 0;
   }
   .svc-card li::before{
-    content:''; width:5px; height:5px; background:var(--blue-hi); margin-top:9px; flex:none;
-    transform:rotate(45deg);
+    content:''; width:5px; height:5px; background:var(--blue-hi);
+    margin-top:7px; flex:none; transform:rotate(45deg);
   }
-  @media (max-width:680px){
-    .services-grid{ grid-template-columns:1fr; }
+  /* always show bullets on touch devices */
+  @media (hover:none){
+    .svc-card ul{ opacity:1; transform:none; }
   }
 
   /* ============ HOW IT WORKS ============ */
@@ -476,7 +515,7 @@
   }
   .testi:hover{ border-color:var(--blue); transform:translateY(-3px); }
   .testi .ph{
-    aspect-ratio: 5/4;
+    aspect-ratio: 3/4;
     background:
       repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 10px, transparent 10px 20px),
       linear-gradient(160deg, #15171b 0%, #0d0f12 100%);
@@ -951,11 +990,7 @@
     </div>
 
     <div class="hero-visual reveal d2" aria-hidden="true">
-      <div class="photo-slot">
-        <div class="pic">▣</div>
-        <div>Foto atleta — posición de arranque</div>
-        <small>Drop final hero photo here (4:5)</small>
-      </div>
+      <img src="assets/img/hero.jpg" alt="Atleta entrenando con Jian Coach" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
       <div class="corner-badge">
         Jian Coach
         <b>Personal Training</b>
@@ -978,118 +1013,150 @@
     </div>
 
     <div class="services-grid">
+
       <article class="svc-card reveal d1">
-        <div class="num">01 / 06</div>
-        <div class="icon" aria-hidden="true">
-          <!-- dumbbell -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
-            <rect x="2" y="9" width="3" height="6"/>
-            <rect x="6" y="6" width="3" height="12"/>
-            <rect x="15" y="6" width="3" height="12"/>
-            <rect x="19" y="9" width="3" height="6"/>
-            <line x1="9" y1="12" x2="15" y2="12"/>
-          </svg>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80" alt="Entrenamiento personalizado" loading="lazy" />
+        <div class="svc-head">
+          <div class="svc-top">
+            <div class="icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+                <rect x="2" y="9" width="3" height="6"/><rect x="6" y="6" width="3" height="12"/>
+                <rect x="15" y="6" width="3" height="12"/><rect x="19" y="9" width="3" height="6"/>
+                <line x1="9" y1="12" x2="15" y2="12"/>
+              </svg>
+            </div>
+            <span class="num">01 / 06</span>
+          </div>
+          <h3>Entrenamiento<br/>Personalizado</h3>
         </div>
-        <h3>Entrenamiento<br/>Personalizado</h3>
-        <p>Plan semanal de fuerza, hipertrofia o acondicionamiento adaptado a tu nivel, equipo disponible y horarios.</p>
-        <ul>
-          <li>Rutinas paso a paso</li>
-          <li>Progresión semanal medible</li>
-          <li>Ajustes según tu feedback</li>
-        </ul>
+        <div class="svc-foot">
+          <p>En el gimnasio o donde tú prefieras. Plan adaptado a tu nivel, equipo y horarios.</p>
+          <ul>
+            <li>Presencial o en tu espacio</li>
+            <li>Progresión semanal medible</li>
+            <li>Ajustes continuos según tu avance</li>
+          </ul>
+        </div>
       </article>
 
       <article class="svc-card reveal d2">
-        <div class="num">02 / 06</div>
-        <div class="icon" aria-hidden="true">
-          <!-- group / classes -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
-            <circle cx="7" cy="8" r="3"/>
-            <circle cx="17" cy="8" r="3"/>
-            <path d="M2 20c0-3 2.5-5 5-5s5 2 5 5"/>
-            <path d="M12 20c0-3 2.5-5 5-5s5 2 5 5"/>
-          </svg>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1549476464-37392f717541?auto=format&fit=crop&w=800&q=80" alt="Clases grupales" loading="lazy" />
+        <div class="svc-head">
+          <div class="svc-top">
+            <div class="icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+                <circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/>
+                <path d="M2 20c0-3 2.5-5 5-5s5 2 5 5"/><path d="M12 20c0-3 2.5-5 5-5s5 2 5 5"/>
+              </svg>
+            </div>
+            <span class="num">02 / 06</span>
+          </div>
+          <h3>Clases<br/>Grupales</h3>
         </div>
-        <h3>Clases<br/>Grupales</h3>
-        <p>Entrenamientos en grupo de alta energía. Comunidad, motivación y un coach guiando cada movimiento en sala.</p>
-        <ul>
-          <li>Grupos reducidos y dirigidos</li>
-          <li>Horarios flexibles semanales</li>
-          <li>Para todos los niveles</li>
-        </ul>
+        <div class="svc-foot">
+          <p>Únete a un curso con personas de tu nivel o arma un grupo de 2 a 5. Más energía, mejores resultados.</p>
+          <ul>
+            <li>Grupos reducidos (2–5 personas)</li>
+            <li>Horarios flexibles semanales</li>
+            <li>Motivación y comunidad real</li>
+          </ul>
+        </div>
       </article>
 
       <article class="svc-card reveal d3">
-        <div class="num">03 / 06</div>
-        <div class="icon" aria-hidden="true">
-          <!-- monitor / online -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
-            <rect x="2" y="4" width="20" height="13"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-            <polyline points="7 11 10 13 16 8"/>
-          </svg>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1616279967983-ec413476e824?auto=format&fit=crop&w=800&q=80" alt="Coaching online" loading="lazy" />
+        <div class="svc-head">
+          <div class="svc-top">
+            <div class="icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+                <rect x="2" y="4" width="20" height="13"/>
+                <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                <polyline points="7 11 10 13 16 8"/>
+              </svg>
+            </div>
+            <span class="num">03 / 06</span>
+          </div>
+          <h3>Coaching<br/>Online</h3>
         </div>
-        <h3>Coaching<br/>Online</h3>
-        <p>Planificaciones a distancia para que entrenes donde estés. Programas digitales con seguimiento semanal directo conmigo.</p>
-        <ul>
-          <li>Plan mensual personalizado</li>
-          <li>Videos demostrativos</li>
-          <li>Check-in por WhatsApp</li>
-        </ul>
+        <div class="svc-foot">
+          <p>Te creo la planificación y te asesoro desde donde estés. Seguimiento semanal directo por WhatsApp.</p>
+          <ul>
+            <li>Plan mensual personalizado</li>
+            <li>Videos demostrativos incluidos</li>
+            <li>Check-in y ajustes semanales</li>
+          </ul>
+        </div>
       </article>
 
       <article class="svc-card reveal d1">
-        <div class="num">04 / 06</div>
-        <div class="icon" aria-hidden="true">
-          <!-- shield / rehab -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
-            <path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6z"/>
-            <polyline points="8 12 11 15 16 9"/>
-          </svg>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=800&q=80" alt="Rehabilitación deportiva" loading="lazy" />
+        <div class="svc-head">
+          <div class="svc-top">
+            <div class="icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+                <path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6z"/>
+                <polyline points="8 12 11 15 16 9"/>
+              </svg>
+            </div>
+            <span class="num">04 / 06</span>
+          </div>
+          <h3>Rehabilitación<br/>Deportiva</h3>
         </div>
-        <h3>Rehabilitación<br/>Deportiva</h3>
-        <p>Vuelve más fuerte después de una lesión. Trabajo progresivo, seguro y supervisado para recuperar movilidad y fuerza.</p>
-        <ul>
-          <li>Protocolos de retorno seguro</li>
-          <li>Ejercicio correctivo</li>
-          <li>Coordinación con tu kine</li>
-        </ul>
+        <div class="svc-foot">
+          <p>Vuelve más fuerte después de una lesión. Trabajo progresivo, seguro y supervisado.</p>
+          <ul>
+            <li>Protocolos de retorno seguro</li>
+            <li>Ejercicio correctivo específico</li>
+            <li>Coordinación con tu kinesiólogo</li>
+          </ul>
+        </div>
       </article>
 
       <article class="svc-card reveal d2">
-        <div class="num">05 / 06</div>
-        <div class="icon" aria-hidden="true">
-          <!-- heart / senior -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
-            <path d="M12 21s-7-4.5-9-10c-1-3 1.5-6 4.5-6 1.8 0 3.4 1 4.5 2.5C13.1 6 14.7 5 16.5 5c3 0 5.5 3 4.5 6-2 5.5-9 10-9 10z"/>
-          </svg>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="Adultos mayores" loading="lazy" />
+        <div class="svc-head">
+          <div class="svc-top">
+            <div class="icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+                <path d="M12 21s-7-4.5-9-10c-1-3 1.5-6 4.5-6 1.8 0 3.4 1 4.5 2.5C13.1 6 14.7 5 16.5 5c3 0 5.5 3 4.5 6-2 5.5-9 10-9 10z"/>
+              </svg>
+            </div>
+            <span class="num">05 / 06</span>
+          </div>
+          <h3>Adultos<br/>Mayores</h3>
         </div>
-        <h3>Adultos<br/>Mayores</h3>
-        <p>Entrenamiento adaptado para mantener autonomía, fuerza y equilibrio. Movilidad y bienestar que se notan día a día.</p>
-        <ul>
-          <li>Ejercicios funcionales seguros</li>
-          <li>Trabajo de equilibrio y fuerza</li>
-          <li>Ritmo respetuoso y cuidado</li>
-        </ul>
+        <div class="svc-foot">
+          <p>Entrenamiento adaptado para mantener autonomía, fuerza y equilibrio. Bienestar que se nota día a día.</p>
+          <ul>
+            <li>Ejercicios funcionales seguros</li>
+            <li>Trabajo de equilibrio y fuerza</li>
+            <li>Ritmo respetuoso y cuidado</li>
+          </ul>
+        </div>
       </article>
 
       <article class="svc-card reveal d3">
-        <div class="num">06 / 06</div>
-        <div class="icon" aria-hidden="true">
-          <!-- chart / results -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
-            <polyline points="3 17 9 11 13 15 21 6"/>
-            <polyline points="21 6 21 11 16 11"/>
-          </svg>
+        <img class="svc-img" src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Seguimiento de resultados" loading="lazy" />
+        <div class="svc-head">
+          <div class="svc-top">
+            <div class="icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D7BFF" stroke-width="2" stroke-linecap="square">
+                <polyline points="3 17 9 11 13 15 21 6"/>
+                <polyline points="21 6 21 11 16 11"/>
+              </svg>
+            </div>
+            <span class="num">06 / 06</span>
+          </div>
+          <h3>Seguimiento<br/>y Resultados</h3>
         </div>
-        <h3>Seguimiento<br/>y Resultados</h3>
-        <p>Evaluaciones periódicas, mediciones y ajuste continuo del plan. Si no avanzas, el plan cambia.</p>
-        <ul>
-          <li>Reporte de progreso quincenal</li>
-          <li>Soporte directo por WhatsApp</li>
-          <li>Avance medible y constante</li>
-        </ul>
+        <div class="svc-foot">
+          <p>Incluido en todos los programas. Evaluaciones periódicas y ajuste continuo. Si no avanzas, cambiamos.</p>
+          <ul>
+            <li>Reporte de progreso quincenal</li>
+            <li>Soporte directo por WhatsApp</li>
+            <li>Avance medible y constante</li>
+          </ul>
+        </div>
       </article>
     </div>
   </div>
@@ -1150,33 +1217,33 @@
           <div class="meta-tag">Foto cliente</div>
         </div>
         <div class="body">
-          <p class="quote">"En 12 semanas pasé de no poder subir escaleras a correr 5K. El plan fue exigente pero realista, sin tortura."</p>
+          <p class="quote">"Los entrenamientos se planificaban según mis objetivos. A las pocas semanas empecé a notar resultados en fuerza y explosión. Todo eso ajustando los horarios a mi pocas horas disponibles del día. Una gran diferencia con otros entrenadores, es que Jian es muy dedicado para que la ejecución del ejercicio sea la correcta."</p>
           <div class="who">
-            <div class="name">Camila R.<small>32 años · Santiago</small></div>
+            <div class="name">Jorge A.<small>49 años · Recreo, Viña del Mar</small></div>
           </div>
         </div>
       </article>
 
       <article class="testi reveal d2">
         <div class="ph">
-          <div class="meta-tag">Foto cliente</div>
+          <img src="assets/img/giorgio-client.jpeg" alt="Giorgio C." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;" />
         </div>
         <div class="body">
-          <p class="quote">"Llevaba 2 años estancado en el gym. Con Jian volví a entrenar con técnica y al fin subí mis cargas con seguridad."</p>
+          <p class="quote">"Excelente experiencia, las clases me han ayudado a recuperarme de lesiones que he tenido de forma crónica y además muy enfocadas a mi objetivo. Destacó que siempre quedas con el sentimiento de que progresas todos los días que vas a las clases."</p>
           <div class="who">
-            <div class="name">Matías V.<small>27 años · Concepción</small></div>
+            <div class="name">Giorgio C.<small>30 años · Reñaca, Viña del Mar</small></div>
           </div>
         </div>
       </article>
 
       <article class="testi reveal d3">
         <div class="ph">
-          <div class="meta-tag">Foto cliente</div>
+          <img src="assets/img/cata-client.jpeg" alt="Giorgio C." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;" />
         </div>
         <div class="body">
-          <p class="quote">"Después de mi lesión pensé que no volvería a entrenar. Jian me devolvió la confianza y la fuerza paso a paso."</p>
+          <p class="quote">"Ha sido una muy buena experiencia, te permite tener supervisión, guía y motivación personalizadamente. Me ha permitido volver a reintegrarme al deporte luego de una lesión, con la tranquilidad de que estoy siendo supervisada por alguien que sabe al respecto. Exigente y a la vez adaptado a tu nivel ¡Muy bueno!"</p>
           <div class="who">
-            <div class="name">Daniela P.<small>35 años · Viña del Mar</small></div>
+            <div class="name">Catalina O.<small>25 años · Miraflores, Viña del Mar</small></div>
           </div>
         </div>
       </article>
@@ -1188,7 +1255,7 @@
 <section class="about section-pad" id="sobre" data-screen-label="05 Sobre Jian">
   <div class="container about-grid">
     <div class="about-photo reveal" aria-hidden="true">
-      <div class="ph-label">Foto Jian · entrenando</div>
+      <img src="assets/img/about-me.jpg" alt="Jian Coach — Preparador Físico" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
       <div class="blue-bar"></div>
       <div class="corner-stamp">Preparador Físico</div>
     </div>
