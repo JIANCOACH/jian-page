@@ -780,6 +780,99 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity:1; transform:none; transition:none; }
   }
+
+  /* ============ THEME TOGGLE BUTTON ============ */
+  .nav-right{
+    display:flex; align-items:center; gap:12px; flex-shrink:0;
+  }
+  .theme-toggle{
+    width:40px; height:40px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--muted-2);
+    flex-shrink:0;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .theme-toggle:hover{ border-color:var(--blue-hi); color:var(--blue-hi); background:rgba(45,123,255,.08); }
+  .theme-toggle .icon-sun{ display:none; }
+  .theme-toggle .icon-moon{ display:block; }
+  .theme-toggle.is-light .icon-sun{ display:block; }
+  .theme-toggle.is-light .icon-moon{ display:none; }
+  @media (max-width:520px){
+    .nav-right .nav-cta .nav-cta-label{ display:none; }
+  }
+
+  /* ============ LIGHT THEME ============ */
+  html.light{
+    --bg: #F4F5F7;
+    --bg-lift: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --line: #DDE0E6;
+    --line-soft: #E8EAF0;
+    --text: #0D0D0D;
+    --muted: #6B7280;
+    --muted-2: #374151;
+  }
+  html.light .badge{ color:var(--text); background:rgba(0,0,0,.04); border-color:var(--line); }
+  html.light .cred{ color:var(--text); border-color:var(--line); }
+  html.light .hero-stats .stat .n{ color:var(--text); }
+  html.light .nav-links a:hover::after{ background:var(--blue-hi); }
+  html.light .foot-brand p{ color:var(--muted-2); }
+  html.light .foot-bottom{ color:var(--muted); }
+  html.light .foot-col a{ color:var(--muted-2); }
+  html.light .foot-col a:hover{ color:var(--text); }
+  html.light .social a{ color:var(--text); border-color:var(--line); }
+  html.light .nav-links a:hover{ color:var(--text); }
+  html.light .nav.scrolled{
+    background:rgba(244,245,247,.92);
+  }
+  html.light .hero{
+    background:
+      radial-gradient(ellipse at 75% 45%, rgba(19,88,187,.14), transparent 55%),
+      radial-gradient(ellipse at 12% 80%, rgba(19,88,187,.07), transparent 50%),
+      var(--bg);
+  }
+  html.light .hero::before{
+    background-image: radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px);
+  }
+  html.light .services{
+    background: linear-gradient(180deg, var(--bg) 0%, #EAEDF2 100%);
+  }
+  html.light .svc-card:hover{ background:#F8F9FC; }
+  html.light .svc-card li{ color:#3a3d42; }
+  html.light .how{
+    background: linear-gradient(180deg, #EAEDF2 0%, var(--bg) 100%);
+  }
+  html.light .step .marker{ background:var(--bg); }
+  html.light .results{ background:#EAEDF2; }
+  html.light .testi .ph{
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,.03) 0 10px, transparent 10px 20px),
+      linear-gradient(160deg, #dde0e8 0%, #d4d8e4 100%);
+  }
+  html.light .testi .quote{ color:#2a2d32; }
+  html.light .hero-visual{
+    background: linear-gradient(135deg, #e4e8f0 0%, #dde2ec 100%);
+    border-color:var(--line);
+  }
+  html.light .photo-slot{
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,.04) 0 12px, transparent 12px 24px),
+      radial-gradient(ellipse at 60% 40%, rgba(19,88,187,.10), transparent 60%);
+  }
+  html.light .about-photo{
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,.04) 0 12px, transparent 12px 24px),
+      linear-gradient(180deg, #dde0e8 0%, #d4d8e4 100%);
+  }
+  html.light .about-bio{ color:#3a3d42; }
+  html.light .philosophy p{ color:var(--text); }
+  html.light footer{ background:#E4E7EE; }
+  html.light .foot-col h5{ color:var(--text); }
+  html.light .wa-float .lbl{ background:var(--bg-card); border-color:var(--line); color:var(--text); }
+  html.light .btn-ghost{ border-color:var(--line); color:var(--text); }
+  html.light .btn-ghost:hover{ color:var(--text); }
 </style>
 </head>
 <body>
@@ -797,10 +890,24 @@
       <a href="#resultados">Resultados</a>
       <a href="#sobre">Sobre Jian</a>
     </div>
-    <a href="#contacto" class="nav-cta">
-      <span>Empieza Hoy</span>
-      <span aria-hidden="true">→</span>
-    </a>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <a href="#contacto" class="nav-cta">
+        <span class="nav-cta-label">Empieza Hoy</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -1197,6 +1304,23 @@
 </a>
 
 <script>
+  // Theme toggle (default: dark)
+  const themeBtn = document.getElementById('themeToggle');
+  function applyTheme(mode) {
+    if (mode === 'light') {
+      document.documentElement.classList.add('light');
+      themeBtn.classList.add('is-light');
+    } else {
+      document.documentElement.classList.remove('light');
+      themeBtn.classList.remove('is-light');
+    }
+    try { localStorage.setItem('theme', mode); } catch(e) {}
+  }
+  applyTheme(localStorage.getItem('theme') || 'dark');
+  themeBtn.addEventListener('click', function() {
+    applyTheme(document.documentElement.classList.contains('light') ? 'dark' : 'light');
+  });
+
   // Sticky nav scroll state
   const nav = document.getElementById('nav');
   const onScroll = () => {
